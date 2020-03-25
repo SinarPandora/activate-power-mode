@@ -51,7 +51,7 @@ public class ActivatePowerDocumentListener implements DocumentListener {
             // 文本变化在 CLICK_TIME_INTERVAL 时间内
             if (manage.getClickCombo() == 0 || System.currentTimeMillis() - manage.getClickTimeStamp() <= state.CLICK_TIME_INTERVAL) {
                 manage.setClickCombo(manage.getClickCombo() + 1);
-                state.MAX_CLICK_COMBO = manage.getClickCombo() > state.MAX_CLICK_COMBO ? manage.getClickCombo() : state.MAX_CLICK_COMBO;
+                state.MAX_CLICK_COMBO = Math.max(manage.getClickCombo(), state.MAX_CLICK_COMBO);
             } else
                 manage.setClickCombo(0);
 
@@ -77,8 +77,12 @@ public class ActivatePowerDocumentListener implements DocumentListener {
             mEditor = selectedTextEditor;
 
         if (mEditor != null) {
-            Point point = mEditor.visualPositionToXY(mEditor.getCaretModel().getCurrentCaret().getSelectionEndPosition());
-            ParticlePanel.getInstance().setCurrentCaretPosition(point);
+            try {
+                Point point = mEditor.visualPositionToXY(mEditor.getCaretModel().getCurrentCaret().getSelectionEndPosition());
+                ParticlePanel.getInstance().setCurrentCaretPosition(point);
+            } catch (Exception ignored) {
+
+            }
         }
     }
 
@@ -110,9 +114,11 @@ public class ActivatePowerDocumentListener implements DocumentListener {
     }
 
     public void destroy() {
-        for (Document document : mDocumentList)
-            clean(document, false);
-        mDocumentList.clear();
+        if (mDocumentList != null) {
+            for (Document document : mDocumentList)
+                clean(document, false);
+            mDocumentList.clear();
+        }
         mProject = null;
     }
 
@@ -126,9 +132,8 @@ public class ActivatePowerDocumentListener implements DocumentListener {
         if (mEditor != null) {
             manage.resetEditor(mEditor);
 
-            if (state.IS_SHAKE) {
-                if (ShakeManager.getInstance().isEnable() && !ShakeManager.getInstance().isShaking())
-                    ShakeManager.getInstance().shake();
+            if (state.IS_SHAKE && ShakeManager.getInstance().isEnable() && !ShakeManager.getInstance().isShaking()) {
+                ShakeManager.getInstance().shake();
             }
 
             if (state.IS_SPARK) {
@@ -141,8 +146,12 @@ public class ActivatePowerDocumentListener implements DocumentListener {
                     EditorEx editorEx = (EditorEx) mEditor;
                     EditorHighlighter editorHighlighter = editorEx.getHighlighter();
                     HighlighterIterator highlighterIterator = editorHighlighter.createIterator(mEditor.getCaretModel().getCurrentCaret().getOffset());
-                    Color fontColor = highlighterIterator.getTextAttributes().getForegroundColor();
-                    color = fontColor != null ? fontColor : mEditor.getColorsScheme().getDefaultForeground();
+                    try {
+                        Color fontColor = highlighterIterator.getTextAttributes().getForegroundColor();
+                        color = fontColor != null ? fontColor : mEditor.getColorsScheme().getDefaultForeground();
+                    } catch (IndexOutOfBoundsException ignored) {
+                        color = mEditor.getColorsScheme().getDefaultForeground();
+                    }
                 }
 
                 int fontSize = mEditor.getColorsScheme().getEditorFontSize();

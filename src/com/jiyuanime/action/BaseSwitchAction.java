@@ -51,5 +51,5 @@ abstract class BaseSwitchAction extends AnAction {
 
     abstract boolean getSwitchFieldValue();
 
-    abstract void setSwitchFieldValue(boolean is_enable);
+    abstract void setSwitchFieldValue(boolean isEnable);
 }

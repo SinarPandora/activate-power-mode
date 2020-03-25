@@ -1,11 +1,9 @@
 package com.jiyuanime.action;
 
 import com.intellij.icons.AllIcons;
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Presentation;
 import com.jiyuanime.ActivatePowerModeManage;
-import com.jiyuanime.config.Config;
 
 
 /**
@@ -29,15 +27,15 @@ public class ActivatePowerEnableAction extends BaseSwitchAction {
     @Override
     protected void showEnable(Presentation presentation) {
         presentation.setIcon(AllIcons.General.InspectionsOK);
-        presentation.setDescription("enable");
-        presentation.setText("enable");
+        presentation.setDescription("Enable");
+        presentation.setText("Enable");
     }
 
     @Override
     protected void showDisable(Presentation presentation) {
         presentation.setIcon(AllIcons.Actions.Cancel);
-        presentation.setDescription("disable");
-        presentation.setText("disable");
+        presentation.setDescription("Disable");
+        presentation.setText("Disable");
     }
 
     @Override
@@ -46,7 +44,7 @@ public class ActivatePowerEnableAction extends BaseSwitchAction {
     }
 
     @Override
-    void setSwitchFieldValue(boolean is_enable) {
-        state.IS_ENABLE = is_enable;
+    void setSwitchFieldValue(boolean isEnable) {
+        state.IS_ENABLE = isEnable;
     }
 }

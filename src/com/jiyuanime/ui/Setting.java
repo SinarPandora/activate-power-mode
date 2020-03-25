@@ -9,10 +9,6 @@ import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 public class Setting implements Configurable {
 
@@ -26,7 +22,7 @@ public class Setting implements Configurable {
     @Nls
     @Override
     public String getDisplayName() {
-        return "activate-power-mode";
+        return "Activate Power Mode";
     }
 
     @Nullable
@@ -73,14 +69,11 @@ public class Setting implements Configurable {
     }
 
     private void initListener() {
-        colorAutoCheckBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                JCheckBox item = (JCheckBox) e.getItem();
+        colorAutoCheckBox.addItemListener(event -> {
+            JCheckBox item = (JCheckBox) event.getItem();
 
-                colorChooser.setSelectedColor(null);
-                colorChooser.setEditable(!item.isSelected());
-            }
+            colorChooser.setSelectedColor(null);
+            colorChooser.setEditable(!item.isSelected());
         });
     }
 

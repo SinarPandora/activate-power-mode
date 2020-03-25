@@ -1,11 +1,5 @@
 package com.jiyuanime.action;
 
-import com.intellij.icons.AllIcons;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.Presentation;
-import com.jiyuanime.config.Config;
-
 /**
  * 震动开关
  * <p>
@@ -19,7 +13,7 @@ public class ShakeSwitchAction extends BaseSwitchAction {
     }
 
     @Override
-    void setSwitchFieldValue(boolean is_enable) {
-        state.IS_SHAKE = is_enable;
+    void setSwitchFieldValue(boolean isEnable) {
+        state.IS_SHAKE = isEnable;
     }
 }

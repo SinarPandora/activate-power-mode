@@ -14,8 +14,8 @@ public class ComboSwitchAction extends BaseSwitchAction {
     }
 
     @Override
-    void setSwitchFieldValue(boolean is_enable) {
-        state.IS_COMBO = is_enable;
+    void setSwitchFieldValue(boolean isEnable) {
+        state.IS_COMBO = isEnable;
     }
 
     @Override

@@ -4,12 +4,11 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.fileEditor.FileEditorManagerAdapter;
 import com.intellij.openapi.fileEditor.FileEditorManagerEvent;
 import com.intellij.openapi.fileEditor.FileEditorManagerListener;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.ui.JBProgressBar;
+import com.intellij.ui.JBColor;
 import com.intellij.util.messages.MessageBusConnection;
 import com.jiyuanime.config.Config;
 import com.jiyuanime.listener.ActivatePowerDocumentListener;
@@ -30,11 +29,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JViewport;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 /**
  * 效果管理器
@@ -61,18 +56,16 @@ public class ActivatePowerModeManage {
 
     private JLabel mComboLabel, mMaxComboLabel;
     private JPanel mComboPanel;
-    private JBProgressBar mClickTimeStampProgressBar;
+    private JProgressBar mClickTimeStampProgressBar;
 
     public void init(Project project) {
 
         if (project != null) {
             // 监听FileEditor的状态
             MessageBusConnection connection = project.getMessageBus().connect();
-            connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new FileEditorManagerAdapter() {
+            connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new FileEditorManagerListener() {
                 @Override
                 public void fileOpened(@NotNull FileEditorManager source, @NotNull VirtualFile file) {
-                    super.fileOpened(source, file);
-
                     destroyShake();
                     destroyParticle();
                     mCurrentEditor = null;
@@ -82,8 +75,6 @@ public class ActivatePowerModeManage {
 
                 @Override
                 public void fileClosed(@NotNull FileEditorManager source, @NotNull VirtualFile file) {
-                    super.fileClosed(source, file);
-
                     ActivatePowerDocumentListener activatePowerDocumentListener = mDocListenerMap.get(source.getProject());
                     if (activatePowerDocumentListener != null)
                         activatePowerDocumentListener.clean(FileDocumentManager.getInstance().getDocument(file), true);
@@ -91,8 +82,6 @@ public class ActivatePowerModeManage {
 
                 @Override
                 public void selectionChanged(@NotNull FileEditorManagerEvent event) {
-                    super.selectionChanged(event);
-
                     if (state.IS_ENABLE) {
                         destroyShake();
                         destroyParticle();
@@ -189,21 +178,17 @@ public class ActivatePowerModeManage {
     }
 
     private void initShake(JComponent jComponent) {
-        Config.State state = Config.getInstance().state;
-        if (state.IS_SHAKE) {
-            if (ShakeManager.getInstance().getNowEditorJComponent() != jComponent) {
-                ShakeManager.getInstance().reset(jComponent);
-            }
+        // Config.State state = Config.getInstance().state;
+        if (state.IS_SHAKE && ShakeManager.getInstance().getNowEditorJComponent() != jComponent) {
+            ShakeManager.getInstance().reset(jComponent);
         }
     }
 
     private void initParticle(JComponent jContentComponent) {
-        Config.State state = Config.getInstance().state;
-        if (state.IS_SPARK) {
-            if (ParticlePanel.getInstance().getNowEditorJComponent() != jContentComponent) {
-                ParticlePanel.getInstance().reset(jContentComponent);
-                jContentComponent.setBorder(ParticlePanel.getInstance());
-            }
+        // Config.State state = Config.getInstance().state;
+        if (state.IS_SPARK && ParticlePanel.getInstance().getNowEditorJComponent() != jContentComponent) {
+            ParticlePanel.getInstance().reset(jContentComponent);
+            jContentComponent.setBorder(ParticlePanel.getInstance());
         }
     }
 
@@ -219,8 +204,8 @@ public class ActivatePowerModeManage {
     private JLabel initComboLabel() {
         JLabel comboLabel = new JLabel("0");
         comboLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        comboLabel.setBackground(new Color(0x00FFFFFF, true));
-        comboLabel.setForeground(Color.GREEN);
+        comboLabel.setBackground(new JBColor(new Color(0x00FFFFFF, true), new Color(0x00FFFFFF, true)));
+        comboLabel.setForeground(new JBColor(new Color(0xDD00E600, true), new Color(0xDD00E600, true)));
 
         try {
             InputStream fontInputStream = getClass().getResourceAsStream("/font/PressStart2P-Regular.ttf");
@@ -236,10 +221,10 @@ public class ActivatePowerModeManage {
     }
 
     private JLabel initMaxComboLabel() {
-        JLabel comboLabel = new JLabel(String.valueOf("Max " + Config.getInstance().state.MAX_CLICK_COMBO));
+        JLabel comboLabel = new JLabel("Max " + Config.getInstance().state.MAX_CLICK_COMBO);
         comboLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        comboLabel.setBackground(new Color(0x00FFFFFF, true));
-        comboLabel.setForeground(Color.GREEN);
+        comboLabel.setBackground(new JBColor(new Color(0x00FFFFFF, true), new Color(0x00FFFFFF, true)));
+        comboLabel.setForeground(new JBColor(new Color(0xDD00E600, true), new Color(0xDD00E600, true)));
 
         try {
             InputStream fontInputStream = getClass().getResourceAsStream("/font/PressStart2P-Regular.ttf");
@@ -254,9 +239,9 @@ public class ActivatePowerModeManage {
         return comboLabel;
     }
 
-    private JBProgressBar initClickTimeStampProgressBar() {
-        JBProgressBar clickTimeStampProgressBar = new JBProgressBar();
-        clickTimeStampProgressBar.setForeground(Color.GREEN);
+    private JProgressBar initClickTimeStampProgressBar() {
+        JProgressBar clickTimeStampProgressBar = new JProgressBar();
+        clickTimeStampProgressBar.setForeground(JBColor.GREEN);
         clickTimeStampProgressBar.setVisible(false);
 
         return clickTimeStampProgressBar;
@@ -265,7 +250,7 @@ public class ActivatePowerModeManage {
     private void addComboLabel(JComponent contentComponent, int x, int y) {
         if (contentComponent != null && contentComponent.getParent() != null && mComboPanel != null && mMaxComboLabel != null && mComboLabel != null && mClickTimeStampProgressBar != null) {
 
-            mMaxComboLabel.setText(String.valueOf("Max " + Config.getInstance().state.MAX_CLICK_COMBO));
+            mMaxComboLabel.setText("Max " + Config.getInstance().state.MAX_CLICK_COMBO);
 
             mComboPanel.remove(mMaxComboLabel);
             mComboPanel.remove(mComboLabel);
@@ -355,24 +340,9 @@ public class ActivatePowerModeManage {
     }
 
     private void destroyProjectMessageBus(Project project, boolean isRemoveProject) {
-        if (project != null) {
+        if (project != null && !project.isDisposed()) {
             MessageBusConnection connection = project.getMessageBus().connect();
-            connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new FileEditorManagerAdapter() {
-                @Override
-                public void fileOpened(@NotNull FileEditorManager source, @NotNull VirtualFile file) {
-                    super.fileOpened(source, file);
-                }
-
-                @Override
-                public void fileClosed(@NotNull FileEditorManager source, @NotNull VirtualFile file) {
-                    super.fileClosed(source, file);
-                }
-
-                @Override
-                public void selectionChanged(@NotNull FileEditorManagerEvent event) {
-                    super.selectionChanged(event);
-                }
-            });
+            connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new FileEditorManagerListener() {});
         }
         if (isRemoveProject)
             mDocListenerMap.remove(project);

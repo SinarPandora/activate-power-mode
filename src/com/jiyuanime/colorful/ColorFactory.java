@@ -13,10 +13,14 @@ import java.util.Random;
  */
 public class ColorFactory {
 
+    private ColorFactory() {}
+
+    private static Random random = new Random();
+
     private static final List<Color> colors = new ArrayList<>();
 
     private static void fill() {
-        if (colors.size() == 0) {
+        if (colors.isEmpty()) {
             colors.add(JBColor.RED);
             colors.add(JBColor.ORANGE);
             colors.add(JBColor.YELLOW);
@@ -35,7 +39,6 @@ public class ColorFactory {
     private static Color getOne() {
         int max = getColors().size();
         int min = 0;
-        Random random = new Random();
         int index = random.nextInt(max) % (max - min + 1) + min;
         return colors.get(index);
     }

@@ -1,21 +1,15 @@
 package com.jiyuanime.particle;
 
+import com.intellij.ui.JBColor;
+import com.intellij.util.ui.ImageUtil;
 import com.intellij.util.ui.JBUI;
 import com.jiyuanime.config.Config;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.Transparency;
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ConcurrentHashMap;
-
-import javax.swing.JComponent;
-import javax.swing.border.Border;
 
 /**
  * 粒子容器
@@ -61,7 +55,7 @@ public class ParticlePanel implements Runnable, Border {
         while (isEnable) {
             if (mParticleAreaGraphics != null) {
 
-                mParticleAreaGraphics.setBackground(new Color(0x00FFFFFF, true));
+                mParticleAreaGraphics.setBackground(new JBColor(new Color(0x00FFFFFF, true), new Color(0x00FFFFFF, true)));
                 mParticleAreaGraphics.clearRect(0, 0, mParticleAreaWidth * 2, mParticleAreaHeight * 2);
 
                 for (String key : mParticleViews.keySet()) {
@@ -137,7 +131,7 @@ public class ParticlePanel implements Runnable, Border {
         isEnable = false;
 
         if (mPThread != null) {
-            mPThread.suspend();
+            mPThread.checkAccess();
             mPThread = null;
         }
 
@@ -174,7 +168,7 @@ public class ParticlePanel implements Runnable, Border {
         mParticleAreaWidth = ParticlePositionCalculateUtil.getParticleAreaWidth(jComponent.getFont().getSize());
         mParticleAreaHeight = ParticlePositionCalculateUtil.getParticleAreaHeight(jComponent.getFont().getSize());
 
-        mParticleAreaImage = new BufferedImage(mParticleAreaWidth, mParticleAreaHeight, BufferedImage.TYPE_INT_BGR);
+        mParticleAreaImage = ImageUtil.createImage(mParticleAreaWidth, mParticleAreaHeight, BufferedImage.TYPE_INT_BGR);
         mParticleAreaGraphics = mParticleAreaImage.createGraphics();
         /** 设置 透明窗体背景 */
         mParticleAreaImage = mParticleAreaGraphics.getDeviceConfiguration().createCompatibleImage(mParticleAreaWidth, mParticleAreaHeight, Transparency.TRANSLUCENT);
