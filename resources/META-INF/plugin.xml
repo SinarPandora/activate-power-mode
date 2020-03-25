@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.jiyuanime.ActivatePowerModeApplicationPlugin</id>
     <name>activate-power-mode</name>
-    <version>0.2.1</version>
+    <version>0.2.2</version>
     <vendor email="" url="https://github.com/ViceFantasyPlace/activate-power-mode">
         ViceFantasyPlace
     </vendor>
@@ -17,6 +17,10 @@
 
     <change-notes>
         <![CDATA[
+        <h3>v0.2.2</h3>
+        <ul>
+        <li>可配置的粒子大小</li>
+        </ul>
         <h3>v0.2.1</h3>
         <ul>
         <li>添加清空计数器的功能</li>
