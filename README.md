@@ -1,7 +1,7 @@
 activate-power-mode
 ====
 
-activate-power-mode for Intellij IDEA
+activate-power-mode for Intellij IDEA, forked from [ViceFantasyPlace/activate-power-mode](https://github.com/ViceFantasyPlace/activate-power-mode)
 -------
 
 ![PREVIEW](https://github.com/ViceFantasyPlace/activate-power-mode/blob/master/ActivatePowerModePreview.gif?raw=true) 
@@ -27,7 +27,7 @@ Features.
 -------
 
 #### 下载jar包
-[直接在 release 下载](https://github.com/ViceFantasyPlace/activate-power-mode/releases)
+[直接在 release 下载](https://github.com/SinarPandora/activate-power-mode/releases)
 
 [~~在Jetbrains plugin repositories上下载（官方仓库版本的作者已放弃维护）~~](https://plugins.jetbrains.com/plugin/8330?pr=idea)
 
