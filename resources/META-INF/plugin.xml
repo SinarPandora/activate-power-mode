@@ -104,7 +104,7 @@
     <actions>
         <!-- Add your actions here -->
         <group id="ActivatePowerModeGroup" popup="true"
-               text="You Are A Powerful Coder!">
+               text="Active Power Mode!">
             <add-to-group group-id="WindowMenu" anchor="first"/>
 
             <action id="ActivatePowerEnable" class="com.jiyuanime.action.ActivatePowerEnableAction"
