@@ -212,7 +212,7 @@ public class ParticlePanel implements Runnable, Border {
 
         Point particlePoint = ParticlePositionCalculateUtil.getParticlePositionOnArea(mParticleAreaWidth, mParticleAreaHeight);
 
-        int particleNumber = 5 + (int) Math.round(Math.random() * state.PARTICLE_MAX_COUNT);
+        int particleNumber = state.PARTICLE_MAX_COUNT;
 
         for (int i = 0; i < particleNumber; i++) {
 
