@@ -16,6 +16,7 @@ public class Setting implements Configurable {
     private ColorPanel colorChooser;
     private JPanel rootPanel;
     private JCheckBox colorAutoCheckBox;
+    private JTextField particleSizeTextField;
 
     private Config.State state = Config.getInstance().state;
 
@@ -41,6 +42,7 @@ public class Setting implements Configurable {
 
         try {
             return !Comparing.equal(state.PARTICLE_MAX_COUNT, Integer.parseInt(particleMaxCountTextField.getText())) ||
+                    !Comparing.equal(state.PARTICLE_SIZE, Integer.parseInt(particleSizeTextField.getText())) ||
                     !Comparing.equal(state.PARTICLE_COLOR, colorAutoCheckBox.isSelected() ? null : colorChooser.getSelectedColor());
         } catch (NumberFormatException $ex) {
             return true;
@@ -52,13 +54,23 @@ public class Setting implements Configurable {
     public void apply() throws ConfigurationException {
 
         try {
-            int particle_max_count = Integer.parseInt(particleMaxCountTextField.getText());
-            if(particle_max_count < 0) {
+            int particleMaxCount = Integer.parseInt(particleMaxCountTextField.getText());
+            if(particleMaxCount <= 0) {
                 throw new ConfigurationException("The 'particle max count' field must be greater than 0");
             }
-            state.PARTICLE_MAX_COUNT = particle_max_count;
+            state.PARTICLE_MAX_COUNT = particleMaxCount;
         } catch (NumberFormatException $ex) {
             throw new ConfigurationException("The 'particle max count' field format error.");
+        }
+
+        try {
+            int particleSize = Integer.parseInt(particleSizeTextField.getText());
+            if(particleSize <= 0) {
+                throw new ConfigurationException("The 'particle size' field must be greater than 0");
+            }
+            state.PARTICLE_SIZE = particleSize;
+        } catch (NumberFormatException $ex) {
+            throw new ConfigurationException("The 'particle size' field format error.");
         }
 
         if(!colorAutoCheckBox.isSelected() && colorChooser.getSelectedColor() == null) {
@@ -79,6 +91,7 @@ public class Setting implements Configurable {
 
     private void initSetting() {
         particleMaxCountTextField.setText(String.valueOf(state.PARTICLE_MAX_COUNT));
+        particleSizeTextField.setText(String.valueOf(state.PARTICLE_SIZE));
         if(state.PARTICLE_COLOR == null) {
             colorAutoCheckBox.setSelected(true);
         } else {

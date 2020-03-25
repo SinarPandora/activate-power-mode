@@ -55,6 +55,8 @@ public class Config implements PersistentStateComponent<Config.State> {
         state.PARTICLE_MAX_COUNT = 5;
 
         state.PARTICLE_COLOR = null;
+
+        state.PARTICLE_SIZE = 6;
     }
 
     public static Config getInstance() {
@@ -112,6 +114,11 @@ public class Config implements PersistentStateComponent<Config.State> {
          * 粒子颜色,为null则代表auto
          */
         public Color PARTICLE_COLOR = null;
+
+        /**
+         * 粒子大小
+         */
+        public int PARTICLE_SIZE = 6;
     }
 
 
