@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.jiyuanime.ActivatePowerModeApplicationPlugin</id>
     <name>activate-power-mode</name>
-    <version>0.1.8</version>
+    <version>0.2.1</version>
     <vendor email="" url="https://github.com/ViceFantasyPlace/activate-power-mode">
         ViceFantasyPlace
     </vendor>
@@ -17,6 +17,18 @@
 
     <change-notes>
         <![CDATA[
+        <h3>v0.2.1</h3>
+        <ul>
+        <li>添加清空最大计数器的功能</li>
+        </ul>
+        <h3>v0.2.0</h3>
+        <ul>
+        <li>API 更新</li>
+        </ul>
+        <h3>v0.1.9</h3>
+        <ul>
+        <li>Bug fix</li>
+        </ul>
           <h3>v0.1.8</h3>
           <ul>
             <li>优化Combo开关关闭Combo计算显示</li>
@@ -71,7 +83,7 @@
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="141.0"/>
+    <idea-version since-build="193.0"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -81,49 +93,50 @@
     <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceInterface="com.jiyuanime.config.Config"
-                            serviceImplementation="com.jiyuanime.config.Config"/>
+        <applicationService serviceImplementation="com.jiyuanime.config.Config"/>
         <applicationConfigurable instance="com.jiyuanime.ui.Setting"/>
     </extensions>
+
+    <applicationListeners>
+        <listener class="com.jiyuanime.listener.ActivatePowerModeProjectListener" topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
 
     <actions>
         <!-- Add your actions here -->
         <group id="ActivatePowerModeGroup" popup="true"
-               text="activate-power-mode">
+               text="You Are A Powerful Coder!">
             <add-to-group group-id="WindowMenu" anchor="first"/>
 
             <action id="ActivatePowerEnable" class="com.jiyuanime.action.ActivatePowerEnableAction"
-                    text="enable"
-                    description="enable">
+                    text="Enable"
+                    description="Enable">
                 <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt A"/>
             </action>
 
-            <action id="ShakeSwitch" class="com.jiyuanime.action.ShakeSwitchAction" text="shake"
-                    description="shake">
+            <action id="ShakeSwitch" class="com.jiyuanime.action.ShakeSwitchAction" text="Shake"
+                    description="Shake">
                 <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt S"/>
             </action>
 
             <action id="ParticleSwitch" class="com.jiyuanime.action.ParticleSwitchAction"
-                    text="particle"
-                    description="particle">
+                    text="Particle"
+                    description="Particle">
                 <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt P"/>
             </action>
 
             <action id="ComboSwitchAction" class="com.jiyuanime.action.ComboSwitchAction"
-                    text="combo"
-                    description="combo"/>
+                    text="Combo"
+                    description="Combo"/>
 
             <action id="ColorfulSwitch" class="com.jiyuanime.action.ColorfulSwitchAction"
-                    text="colorful"
-                    description="colorful"/>
+                    text="Colorful"
+                    description="Colorful"/>
+
+            <action id="ClearComboCount" class="com.jiyuanime.action.ClearComboCountAction"
+                    text="Clear Combo"
+                    description="Clear combo count"/>
         </group>
 
     </actions>
 
-    <application-components>
-        <component>
-            <implementation-class>com.jiyuanime.ActivatePowerModeApplicationPlugin
-            </implementation-class>
-        </component>
-    </application-components>
 </idea-plugin>
