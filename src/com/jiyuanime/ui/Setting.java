@@ -12,11 +12,13 @@ import javax.swing.*;
 
 public class Setting implements Configurable {
 
-    private JTextField particleMaxCountTextField;
     private ColorPanel colorChooser;
     private JPanel rootPanel;
     private JCheckBox colorAutoCheckBox;
-    private JTextField particleSizeTextField;
+    private JSlider particleSizeSlider;
+    private JSlider particleMaxCountSlider;
+    private JLabel maxCountValue;
+    private JLabel sizeValue;
 
     private Config.State state = Config.getInstance().state;
 
@@ -29,69 +31,59 @@ public class Setting implements Configurable {
     @Nullable
     @Override
     public JComponent createComponent() {
-
         initListener();
-
         initSetting();
-
         return this.rootPanel;
     }
 
     @Override
     public boolean isModified() {
-
         try {
-            return !Comparing.equal(state.PARTICLE_MAX_COUNT, Integer.parseInt(particleMaxCountTextField.getText())) ||
-                    !Comparing.equal(state.PARTICLE_SIZE, Integer.parseInt(particleSizeTextField.getText())) ||
+            return !Comparing.equal(state.PARTICLE_MAX_COUNT, particleMaxCountSlider.getValue()) ||
+                    !Comparing.equal(state.PARTICLE_SIZE, particleSizeSlider.getValue()) ||
                     !Comparing.equal(state.PARTICLE_COLOR, colorAutoCheckBox.isSelected() ? null : colorChooser.getSelectedColor());
         } catch (NumberFormatException $ex) {
             return true;
         }
-
     }
 
     @Override
     public void apply() throws ConfigurationException {
-
-        try {
-            int particleMaxCount = Integer.parseInt(particleMaxCountTextField.getText());
-            if(particleMaxCount <= 0) {
-                throw new ConfigurationException("The 'particle max count' field must be greater than 0");
-            }
-            state.PARTICLE_MAX_COUNT = particleMaxCount;
-        } catch (NumberFormatException $ex) {
-            throw new ConfigurationException("The 'particle max count' field format error.");
-        }
-
-        try {
-            int particleSize = Integer.parseInt(particleSizeTextField.getText());
-            if(particleSize <= 0) {
-                throw new ConfigurationException("The 'particle size' field must be greater than 0");
-            }
-            state.PARTICLE_SIZE = particleSize;
-        } catch (NumberFormatException $ex) {
-            throw new ConfigurationException("The 'particle size' field format error.");
-        }
-
+        state.PARTICLE_MAX_COUNT = particleMaxCountSlider.getValue();
+        state.PARTICLE_SIZE = particleSizeSlider.getValue();
         if(!colorAutoCheckBox.isSelected() && colorChooser.getSelectedColor() == null) {
             throw new ConfigurationException("'particle color' is not choose.'");
         }
-
         state.PARTICLE_COLOR = colorAutoCheckBox.isSelected() ? null : colorChooser.getSelectedColor();
+    }
+
+    @Override
+    public void reset() {
+        this.initSetting();
     }
 
     private void initListener() {
         colorAutoCheckBox.addItemListener(event -> {
             JCheckBox item = (JCheckBox) event.getItem();
-
             colorChooser.setSelectedColor(null);
             colorChooser.setEditable(!item.isSelected());
+        });
+        particleSizeSlider.addChangeListener(event -> {
+            JSlider source = (JSlider) event.getSource();
+            sizeValue.setText(String.valueOf(source.getValue()));
+        });
+        particleMaxCountSlider.addChangeListener(event -> {
+            JSlider source = (JSlider) event.getSource();
+            maxCountValue.setText(String.valueOf(source.getValue()));
         });
     }
 
     private void initSetting() {
-        particleMaxCountTextField.setText(String.valueOf(state.PARTICLE_MAX_COUNT));
-        particleSizeTextField.setText(String.valueOf(state.PARTICLE_SIZE));
+        particleMaxCountSlider.setValue(state.PARTICLE_MAX_COUNT);
+        maxCountValue.setText(String.valueOf(state.PARTICLE_MAX_COUNT));
+        particleSizeSlider.setValue(state.PARTICLE_SIZE);
+        sizeValue.setText(String.valueOf(state.PARTICLE_SIZE));
+
         if(state.PARTICLE_COLOR == null) {
             colorAutoCheckBox.setSelected(true);
         } else {
