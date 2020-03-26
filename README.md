@@ -49,3 +49,8 @@ Features.
 >-> add a new Plugin Configuration <br>
 >-> 在 Use classpath of module 选择 activate-power-mode <br>
 >-> Apply <br>
+
+TODO
+-------
+[] 更平滑的进度条增长动画
+[] 类似 Atom 插件，达到一定数量后改变计数器颜色及弹出文本
