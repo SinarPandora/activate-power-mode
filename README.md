@@ -1,11 +1,11 @@
-activate-power-mode
+activate-power-mode-x
 ====
 
-activate-power-mode for Intellij IDEA, forked from [ViceFantasyPlace/activate-power-mode](https://github.com/ViceFantasyPlace/activate-power-mode)
+activate-power-mode for Jetbrains IDEs, forked from [ViceFantasyPlace/activate-power-mode](https://github.com/ViceFantasyPlace/activate-power-mode)
 -------
 
-![PREVIEW](https://github.com/ViceFantasyPlace/activate-power-mode/blob/master/ActivatePowerModePreview.gif?raw=true) 
-![PREVIEW_2](https://github.com/ViceFantasyPlace/activate-power-mode/blob/master/ActivatePowerModePreview-2.gif?raw=true) 
+![PREVIEW](https://raw.githubusercontent.com/SinarPandora/activate-power-mode/master/editor.gif?raw=true) 
+![PREVIEW_2](https://raw.githubusercontent.com/SinarPandora/activate-power-mode/master/counter.gif?raw=true) 
 
 Features.
 -------
@@ -20,7 +20,7 @@ Features.
 -------
 安装 activate-power-mode 之后 到 Window > activate-power-mode 就可以开启或者关闭相对应的效果
 
-建议配合 [Nyan Progress Bar 插件](https://plugins.jetbrains.com/plugin/8575-nyan-progress-bar) 使用
+截图中的进度条来自 [Nyan Progress Bar 插件](https://plugins.jetbrains.com/plugin/8575-nyan-progress-bar)
 
 
 安装
@@ -29,7 +29,7 @@ Features.
 #### 下载jar包
 [直接在 release 下载](https://github.com/SinarPandora/activate-power-mode/releases)
 
-[~~在Jetbrains plugin repositories上下载（官方仓库版本的作者已放弃维护）~~](https://plugins.jetbrains.com/plugin/8330?pr=idea)
+[在Jetbrains plugin repositories上下载](https://plugins.jetbrains.com/plugin/14000-activate-power-mode-x)
 
 #### 安装 Plugin jar包
 >Preferences/Plugins <br>
