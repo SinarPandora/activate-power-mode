@@ -11,9 +11,9 @@
           <img src="https://raw.githubusercontent.com/SinarPandora/activate-power-mode/master/editor.gif?raw=true" />
           <br />
           <img src="https://raw.githubusercontent.com/SinarPandora/activate-power-mode/master/counter.gif?raw=true" />
-          <h3>activate-power-mode for IDEA.</h3>
+          <h3>activate-power-mode for Jetbrains IDEs.</h3>
           <ul>
-			<li>根据Atom的插件 activate-power-mode 的效果移植到IDEA上</li>
+			<li>根据Atom的插件 activate-power-mode 的效果移植到 Jetbrains IDE 上</li>
 			<li>activate-power-mode 插件的修复版本</li>
 			<li>Forked from https://github.com/ViceFantasyPlace/activate-power-mode, 感谢原作者的付出</li>
 			<li>截图中的进度条为 <a href="https://plugins.jetbrains.com/plugin/8575-nyan-progress-bar">Nyan Progress Bar 插件</a></li>

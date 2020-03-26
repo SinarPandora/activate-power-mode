@@ -18,7 +18,9 @@ Features.
 
 使用
 -------
-安装 activate-power-mode 之后 到 Window > activate-power-mode 就可以开启或者关闭相对应的效果
+安装插件之后 到 Window > Activate Power Mode! 就可以开启或者关闭相对应的效果
+
+在配置菜单 Other Settings > Activate Power Mode 中提供了修改效果的选项
 
 截图中的进度条来自 [Nyan Progress Bar 插件](https://plugins.jetbrains.com/plugin/8575-nyan-progress-bar)
 
@@ -32,9 +34,9 @@ Features.
 [在Jetbrains plugin repositories上下载](https://plugins.jetbrains.com/plugin/14000-activate-power-mode-x)
 
 #### 安装 Plugin jar包
->Preferences/Plugins <br>
+>Preferences > Plugins <br>
 >-> Install plugin from disk <br>
->-> 选择 jar文件 <br>
+>-> 选择 jar 文件 <br>
 >-> Apply <br>
 >-> 重启编辑器 <br>
 
@@ -52,6 +54,6 @@ Features.
 
 TODO
 -------
-[ ] 可配置的震动、粒子触发  
+[ ] 可配置的震动、粒子触发时机  
 [ ] 更平滑的进度条增长动画  
 [ ] 类似 Atom 插件，达到一定数量后改变计数器颜色及弹出文本  
