@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.sinar.ActivatePowerModeXApplicationPlugin</id>
     <name>activate-power-mode-x</name>
-    <version>0.2.3</version>
+    <version>0.2.4</version>
     <vendor email="" url="https://github.com/SinarPandora/activate-power-mode">
         SinarPandora
     </vendor>
@@ -29,21 +29,32 @@
 
     <change-notes>
         <![CDATA[
+        <h3>v0.2.4</h3>
+        <ul>
+        <li>修复关闭功能无法彻底关闭的问题</li>
+        <li>计数器现在可以修改字体</li>
+        <li>Fix: Power-mode cannot be disabled</li>
+        <li>Configurable combo font</li>
+        </ul>
         <h3>v0.2.3</h3>
         <ul>
         <li>调整插件说明及添加截图</li>
+        <li>Update plugin description</li>
         </ul>
         <h3>v0.2.2</h3>
         <ul>
         <li>可配置的粒子大小</li>
+        <li>Configurable particle size</li>
         </ul>
         <h3>v0.2.1</h3>
         <ul>
         <li>添加清空计数器的功能</li>
+        <li>Feature: Clear combo</li>
         </ul>
         <h3>v0.2.0</h3>
         <ul>
         <li>API 更新</li>
+        <li>Update API</li>
         </ul>
         <h3>v0.1.9</h3>
         <ul>

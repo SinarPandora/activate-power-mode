@@ -23,6 +23,8 @@ import java.awt.*;
 )
 public class Config implements PersistentStateComponent<Config.State> {
 
+    public static final String DEFAULT = "default";
+
     @Nullable
     @Override
     public State getState() {
@@ -119,6 +121,11 @@ public class Config implements PersistentStateComponent<Config.State> {
          * 粒子大小
          */
         public int PARTICLE_SIZE = 6;
+
+        /**
+         * 字体文件位置
+         */
+        public String FONT_FILE_LOCATION = null;
     }
 
 

@@ -168,6 +168,7 @@ public class ActivatePowerModeManage {
     public void destroy(Project project, boolean isRemoveProject) {
         destroyShake();
         destroyParticle();
+        clearComboView(project);
         destroyDocumentListener(project, isRemoveProject);
         mCurrentEditor = null;
         destroyProjectMessageBus(project, isRemoveProject);
