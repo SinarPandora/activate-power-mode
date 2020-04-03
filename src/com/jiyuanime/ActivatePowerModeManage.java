@@ -23,11 +23,12 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
+import java.util.*;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.*;
 
@@ -49,6 +50,7 @@ public class ActivatePowerModeManage {
     private Config.State state = Config.getInstance().state;
 
     private HashMap<Project, ActivatePowerDocumentListener> mDocListenerMap = new HashMap<>();
+    private Map<String, MessageBusConnection> activeConnections = new HashMap<>();
     private Editor mCurrentEditor;
 
     private long mClickTimeStamp;
@@ -63,6 +65,7 @@ public class ActivatePowerModeManage {
         if (project != null) {
             // 监听FileEditor的状态
             MessageBusConnection connection = project.getMessageBus().connect();
+            this.activeConnections.put(project.getBasePath(), connection);
             connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new FileEditorManagerListener() {
                 @Override
                 public void fileOpened(@NotNull FileEditorManager source, @NotNull VirtualFile file) {
@@ -208,9 +211,7 @@ public class ActivatePowerModeManage {
         comboLabel.setForeground(new JBColor(new Color(0xDD00E600, true), new Color(0xDD00E600, true)));
 
         try {
-            InputStream fontInputStream = getClass().getResourceAsStream("/font/PressStart2P-Regular.ttf");
-            Font font = Font.createFont(Font.TRUETYPE_FONT, fontInputStream);
-            font = font.deriveFont(Font.BOLD, 64f);
+            Font font = initFile().deriveFont(Font.BOLD, 64f);
             comboLabel.setFont(font);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
@@ -220,6 +221,23 @@ public class ActivatePowerModeManage {
         return comboLabel;
     }
 
+    private Font initFile() throws IOException, FontFormatException {
+        InputStream fontInputStream;
+
+        if (Objects.isNull(state.FONT_FILE_LOCATION)) {
+            fontInputStream = getClass().getResourceAsStream("/font/PressStart2P-Regular.ttf");
+        } else {
+            File fontFile = new File(state.FONT_FILE_LOCATION);
+            if (fontFile.exists()) {
+                fontInputStream = new FileInputStream(fontFile);
+            } else {
+                throw new IOException("Cannot load font file: " + state.FONT_FILE_LOCATION);
+            }
+        }
+
+        return Font.createFont(Font.TRUETYPE_FONT, fontInputStream);
+    }
+
     private JLabel initMaxComboLabel() {
         JLabel comboLabel = new JLabel("Max " + Config.getInstance().state.MAX_CLICK_COMBO);
         comboLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -227,8 +245,7 @@ public class ActivatePowerModeManage {
         comboLabel.setForeground(new JBColor(new Color(0xDD00E600, true), new Color(0xDD00E600, true)));
 
         try {
-            InputStream fontInputStream = getClass().getResourceAsStream("/font/PressStart2P-Regular.ttf");
-            Font font = Font.createFont(Font.TRUETYPE_FONT, fontInputStream);
+            Font font = initFile();
             font = font.deriveFont(Font.BOLD, 24f);
             comboLabel.setFont(font);
         } catch (FontFormatException | IOException e) {
@@ -341,8 +358,8 @@ public class ActivatePowerModeManage {
 
     private void destroyProjectMessageBus(Project project, boolean isRemoveProject) {
         if (project != null && !project.isDisposed()) {
-            MessageBusConnection connection = project.getMessageBus().connect();
-            connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new FileEditorManagerListener() {});
+            Optional.ofNullable(this.activeConnections.remove(project.getBasePath()))
+                    .ifPresent(MessageBusConnection::disconnect);
         }
         if (isRemoveProject)
             mDocListenerMap.remove(project);
