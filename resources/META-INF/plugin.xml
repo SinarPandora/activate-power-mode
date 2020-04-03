@@ -31,7 +31,7 @@
         <![CDATA[
         <h3>v0.2.4</h3>
         <ul>
-        <li>修复关闭功能无法彻底关闭的问题</li>
+        <li>修复无法彻底禁用（Disable）的问题</li>
         <li>计数器现在可以修改字体</li>
         <li>Fix: Power-mode cannot be disabled</li>
         <li>Configurable combo font</li>
