@@ -15,22 +15,16 @@ import com.jiyuanime.listener.ActivatePowerDocumentListener;
 import com.jiyuanime.particle.ParticlePanel;
 import com.jiyuanime.shake.ShakeManager;
 import com.jiyuanime.utils.IntegerUtil;
-
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.FontFormatException;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
 import java.util.Timer;
-
-import javax.swing.*;
+import java.util.*;
 
 /**
  * 效果管理器
@@ -168,7 +162,9 @@ public class ActivatePowerModeManage {
     public void destroy(Project project, boolean isRemoveProject) {
         destroyShake();
         destroyParticle();
-        clearComboView(project);
+        if (state.IS_COMBO) {
+            clearComboView(project);
+        }
         destroyDocumentListener(project, isRemoveProject);
         mCurrentEditor = null;
         destroyProjectMessageBus(project, isRemoveProject);
@@ -297,7 +293,10 @@ public class ActivatePowerModeManage {
         Editor selectedTextEditor = FileEditorManager.getInstance(project).getSelectedTextEditor();
         if (selectedTextEditor != null) {
             JComponent contentJComponent = selectedTextEditor.getContentComponent();
-            contentJComponent.remove(mComboPanel);
+            //noinspection ConstantConditions
+            if (Objects.nonNull(contentJComponent)) {
+                contentJComponent.remove(mComboPanel);
+            }
         }
 
         mComboLabel = null;

@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.sinar.ActivatePowerModeXApplicationPlugin</id>
     <name>activate-power-mode-x</name>
-    <version>0.2.4</version>
+    <version>0.2.5</version>
     <vendor email="" url="https://github.com/SinarPandora/activate-power-mode">
         SinarPandora
     </vendor>
@@ -29,6 +29,13 @@
 
     <change-notes>
         <![CDATA[
+        <h3>v0.2.5</h3>
+        <ul>
+        <li>更新 API</li>
+        <li>修复关闭无 Combo 的情况下关闭时引发的空指针异常</li>
+        <li>Update API</li>
+        <li>Fix NPE on disable power mode when combo is disabled</li>
+        </ul>
         <h3>v0.2.4</h3>
         <ul>
         <li>修复无法彻底禁用（Disable）的问题</li>
@@ -64,7 +71,7 @@
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="193.0"/>
+    <idea-version since-build="193.5233.102"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->

@@ -1,5 +1,7 @@
 package com.jiyuanime.particle;
 
+import com.intellij.ui.JBColor;
+
 import java.awt.*;
 import java.awt.color.ColorSpace;
 
@@ -54,7 +56,7 @@ class ParticleView {
             newAlpha = 1.0f;
         else if (newAlpha < 0.0f)
             newAlpha = 0.0f;
-        mColor = new Color(colorSpace, floats, newAlpha);
+        mColor = new JBColor(new Color(colorSpace, floats, newAlpha), new Color(colorSpace, floats, newAlpha));
     }
 
     public boolean isEnable() {
