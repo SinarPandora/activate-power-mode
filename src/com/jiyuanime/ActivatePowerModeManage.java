@@ -294,7 +294,7 @@ public class ActivatePowerModeManage {
         if (selectedTextEditor != null) {
             JComponent contentJComponent = selectedTextEditor.getContentComponent();
             //noinspection ConstantConditions
-            if (Objects.nonNull(contentJComponent)) {
+            if (Objects.nonNull(contentJComponent) && Objects.nonNull(mComboPanel)) {
                 contentJComponent.remove(mComboPanel);
             }
         }
