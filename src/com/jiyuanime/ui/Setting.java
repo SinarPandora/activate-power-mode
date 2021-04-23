@@ -112,8 +112,8 @@ public class Setting implements Configurable {
         setDefaultButton.addActionListener(event -> this.comboFont.setText(Config.DEFAULT));
         FileChooserDescriptor fontFileConfig = FileChooserDescriptorFactory.createSingleFileNoJarsDescriptor();
         chooseFontButton.addActionListener(event -> {
-            Project project = ProjectUtil.guessCurrentProject((JButton) event.getSource());
             VirtualFile currentDir = LocalFileSystem.getInstance().findFileByIoFile(new File("./"));
+            Project project = ProjectUtil.guessProjectForFile(currentDir);
             FileChooser.chooseFile(fontFileConfig, project, currentDir, file ->
                     this.comboFont.setText(file.getPath()));
         });
