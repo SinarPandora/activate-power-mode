@@ -11,6 +11,8 @@
           <img src="https://raw.githubusercontent.com/SinarPandora/activate-power-mode/master/editor.gif?raw=true" />
           <br />
           <img src="https://raw.githubusercontent.com/SinarPandora/activate-power-mode/master/counter.gif?raw=true" />
+          <br />
+          <img src="https://raw.githubusercontent.com/SinarPandora/activate-power-mode/master/setting.png?raw=true" />
           <h3>activate-power-mode for Jetbrains IDEs.</h3>
           <ul>
 			<li>根据Atom的插件 activate-power-mode 的效果移植到 Jetbrains IDE 上</li>
