@@ -10,6 +10,9 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 粒子容器
@@ -17,6 +20,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by KADO on 15/12/15.
  */
 public class ParticlePanel implements Runnable, Border {
+    private static final JBColor backgroundColor = new JBColor(
+            new Color(0x00FFFFFF, true),
+            new Color(0x00FFFFFF, true)
+    );
+    private static final ScheduledExecutorService SCHEDULER = Executors.newScheduledThreadPool(1);
     private static final int MAX_PARTICLE_COUNT = 100;
 
     private static ParticlePanel mParticlePanel;
@@ -52,31 +60,33 @@ public class ParticlePanel implements Runnable, Border {
 
     @Override
     public void run() {
-        while (isEnable) {
-            if (mParticleAreaGraphics != null) {
+        if (isEnable) {
+            SCHEDULER.schedule(this::eventLoop, 0, TimeUnit.MINUTES);
+        }
+    }
 
-                mParticleAreaGraphics.setBackground(new JBColor(new Color(0x00FFFFFF, true), new Color(0x00FFFFFF, true)));
-                mParticleAreaGraphics.clearRect(0, 0, mParticleAreaWidth * 2, mParticleAreaHeight * 2);
+    public void eventLoop() {
+        if (mParticleAreaGraphics != null) {
 
-                for (String key : mParticleViews.keySet()) {
-                    ParticleView particleView = mParticleViews.get(key);
-                    if (particleView != null && particleView.isEnable()) {
-                        mParticleAreaGraphics.setColor(particleView.mColor);
-                        mParticleAreaGraphics.fillOval((int) particleView.x, (int) particleView.y, state.PARTICLE_SIZE, state.PARTICLE_SIZE);
+            mParticleAreaGraphics.setBackground(backgroundColor);
+            mParticleAreaGraphics.clearRect(0, 0, mParticleAreaWidth * 2, mParticleAreaHeight * 2);
 
-                        update(particleView);
-                    }
+            for (String key : mParticleViews.keySet()) {
+                ParticleView particleView = mParticleViews.get(key);
+                if (particleView != null && particleView.isEnable()) {
+                    mParticleAreaGraphics.setColor(particleView.mColor);
+                    mParticleAreaGraphics.fillOval((int) particleView.x, (int) particleView.y, state.PARTICLE_SIZE, state.PARTICLE_SIZE);
+
+                    update(particleView);
                 }
-
-                if (mNowEditorJComponent != null)
-                    mNowEditorJComponent.repaint();
             }
 
-            try {
-                Thread.sleep(35);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            if (mNowEditorJComponent != null)
+                mNowEditorJComponent.repaint();
+        }
+
+        if (isEnable) {
+            SCHEDULER.schedule(this::eventLoop, 35, TimeUnit.MILLISECONDS);
         }
     }
 

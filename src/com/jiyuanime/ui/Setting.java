@@ -33,6 +33,7 @@ public class Setting implements Configurable {
     private JTextField comboFont;
     private JButton setDefaultButton;
     private JButton chooseFontButton;
+    private JTextField activateBorder;
 
     private Config.State state = Config.getInstance().state;
 
@@ -41,7 +42,7 @@ public class Setting implements Configurable {
     @Nls
     @Override
     public String getDisplayName() {
-        return "Activate Power Mode";
+        return "Activate Power Mode X";
     }
 
     @Nullable
@@ -69,14 +70,21 @@ public class Setting implements Configurable {
         state.PARTICLE_MAX_COUNT = particleMaxCountSlider.getValue();
         state.PARTICLE_SIZE = particleSizeSlider.getValue();
         if(!colorAutoCheckBox.isSelected() && colorChooser.getSelectedColor() == null) {
-            throw new ConfigurationException("'particle color' is not choose.'");
+            throw new ConfigurationException("'Particle color' is not choose.'");
         }
         state.PARTICLE_COLOR = colorAutoCheckBox.isSelected() ? null : colorChooser.getSelectedColor();
 
         if ("".equals(comboFont.getText())) {
-            throw new ConfigurationException("'combo label font must be set'");
+            throw new ConfigurationException("'Combo label font must be set'");
         } else if (!Comparing.strEqual(Config.DEFAULT, comboFont.getText()) && !new File(comboFont.getText()).exists()) {
-            throw new ConfigurationException("'font file must exist!'");
+            throw new ConfigurationException("'Font file must exist!'");
+        }
+
+        try {
+            int border = Integer.parseInt(activateBorder.getText());
+            state.OPEN_FUNCTION_BORDER = border;
+        } catch (NumberFormatException $ex) {
+            throw new ConfigurationException("'Activate border should be a number'");
         }
 
         String selectFonts = comboFont.getText().equals(Config.DEFAULT) ? null : comboFont.getText();
@@ -124,6 +132,7 @@ public class Setting implements Configurable {
         maxCountValue.setText(String.valueOf(state.PARTICLE_MAX_COUNT));
         particleSizeSlider.setValue(state.PARTICLE_SIZE);
         sizeValue.setText(String.valueOf(state.PARTICLE_SIZE));
+        activateBorder.setText(String.valueOf(state.OPEN_FUNCTION_BORDER));
 
         if(state.PARTICLE_COLOR == null) {
             colorAutoCheckBox.setSelected(true);

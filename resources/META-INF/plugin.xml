@@ -29,6 +29,13 @@
 
     <change-notes>
         <![CDATA[
+        <h3>v0.2.5</h3>
+        <ul>
+        <li>现在可以调节触发效果所需的连击数量</li>
+        <li>性能优化与已知问题修复</li>
+        <li>The number of combos required to trigger the effect can now be adjusted.</li>
+        <li>Performance optimization and fixes for known issues.</li>
+        </ul>
         <h3>v0.2.4.2</h3>
         <ul>
         <li>更新 API</li>

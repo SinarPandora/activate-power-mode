@@ -20,6 +20,7 @@ import com.jiyuanime.utils.IntegerUtil;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JLabel;
 
@@ -29,10 +30,10 @@ import javax.swing.JLabel;
  */
 public class ActivatePowerDocumentListener implements DocumentListener {
 
-    private Config.State state = Config.getInstance().state;
+    private final Config.State state = Config.getInstance().state;
 
     private Project mProject;
-    private ArrayList<Document> mDocumentList = new ArrayList<>();
+    private final List<Document> mDocumentList = new ArrayList<>();
 
     private Editor mEditor;
 

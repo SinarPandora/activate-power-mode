@@ -59,6 +59,8 @@ public class Config implements PersistentStateComponent<Config.State> {
         state.PARTICLE_COLOR = null;
 
         state.PARTICLE_SIZE = 6;
+
+        state.OPEN_FUNCTION_BORDER = 30;
     }
 
     public static Config getInstance() {
