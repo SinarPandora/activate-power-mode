@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.sinar.ActivatePowerModeXApplicationPlugin</id>
     <name>activate-power-mode-x</name>
-    <version>0.2.4.2</version>
+    <version>0.2.5</version>
     <vendor email="" url="https://github.com/SinarPandora/activate-power-mode">
         SinarPandora
     </vendor>
