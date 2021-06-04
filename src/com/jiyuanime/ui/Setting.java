@@ -58,6 +58,7 @@ public class Setting implements Configurable {
         try {
             return !Comparing.equal(state.PARTICLE_MAX_COUNT, particleMaxCountSlider.getValue()) ||
                     !Comparing.equal(state.PARTICLE_SIZE, particleSizeSlider.getValue()) ||
+                    !Comparing.strEqual(String.valueOf(state.OPEN_FUNCTION_BORDER), activateBorder.getText()) ||
                     !Comparing.strEqual(state.FONT_FILE_LOCATION == null? Config.DEFAULT: state.FONT_FILE_LOCATION, comboFont.getText()) ||
                     !Comparing.equal(state.PARTICLE_COLOR, colorAutoCheckBox.isSelected() ? null : colorChooser.getSelectedColor());
         } catch (NumberFormatException $ex) {
