@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.sinar.ActivatePowerModeXApplicationPlugin</id>
     <name>activate-power-mode-x</name>
-    <version>0.2.5</version>
+    <version>0.2.5.1</version>
     <vendor email="" url="https://github.com/SinarPandora/activate-power-mode">
         SinarPandora
     </vendor>
@@ -31,7 +31,7 @@
 
     <change-notes>
         <![CDATA[
-        <h3>v0.2.5</h3>
+        <h3>v0.2.5.1</h3>
         <ul>
         <li>现在可以调节触发效果所需的连击数量</li>
         <li>性能优化与已知问题修复</li>
