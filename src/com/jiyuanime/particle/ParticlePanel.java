@@ -9,10 +9,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * 粒子容器
@@ -24,7 +21,8 @@ public class ParticlePanel implements Runnable, Border {
             new Color(0x00FFFFFF, true),
             new Color(0x00FFFFFF, true)
     );
-    private static final ScheduledExecutorService SCHEDULER = Executors.newScheduledThreadPool(1);
+    private static final ScheduledExecutorService SCHEDULER = Executors.newSingleThreadScheduledExecutor();
+    private static ScheduledFuture<?> task;
     private static final int MAX_PARTICLE_COUNT = 100;
 
     private static ParticlePanel mParticlePanel;
@@ -61,7 +59,7 @@ public class ParticlePanel implements Runnable, Border {
     @Override
     public void run() {
         if (isEnable) {
-            SCHEDULER.schedule(this::eventLoop, 0, TimeUnit.MINUTES);
+            task = SCHEDULER.scheduleAtFixedRate(this::eventLoop, 0, 10, TimeUnit.MILLISECONDS);
         }
     }
 
@@ -85,8 +83,8 @@ public class ParticlePanel implements Runnable, Border {
                 mNowEditorJComponent.repaint();
         }
 
-        if (isEnable) {
-            SCHEDULER.schedule(this::eventLoop, 35, TimeUnit.MILLISECONDS);
+        if (!isEnable && task != null) {
+            task.cancel(true);
         }
     }
 
